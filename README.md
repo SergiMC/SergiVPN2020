@@ -8,7 +8,7 @@ Crearem una VPN amb l'estructura:
 * Client 1 (Configurarem el client a un host).
 * Client 2 (Configurarem el client a un host).
 
-## Creació de claus i certifiació
+## Creació de claus i certificació
 
 Utilitzarem openssl per crear les claus i la certificació (CA) per crear els túnels VPN.
 L'entitat que crearem s'anomenarà: **Sergi2020** que generarà els certificats del server i dels clients.
