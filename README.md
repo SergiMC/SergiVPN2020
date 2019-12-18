@@ -23,3 +23,7 @@ Configurarem el servidor amb els certificats i claus:
 Configurarem els clients amb els certificats i claus:
 
 * clau privada i certificat de client
+
+
+## Creació de claus i certificats
+
