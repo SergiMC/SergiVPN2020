@@ -27,7 +27,8 @@ Configurarem els clients amb els certificats i claus:
 
 ## Creació de claus i certificats
 
-* **Servidor**.
+* **Servidor**
+
 Per a la creació d'un autocertificat, hem de generar com a primera instància la clau privada.
 
 ```[root@ip-172-31-30-207 server]# openssl genrsa -out cakey.pem
