@@ -164,3 +164,9 @@ Signature ok
 subject=C = SP, ST = Barcelona, L = Barcelona, O = Sergi2020, OU = Departament de sergi, CN = Sergi2020, emailAddress = admin@sergi2020.org
 Getting CA Private Key
 ```
+
+* **Activació dels serveis**
+
+* **Extensions dels certificats**
+
+* **Comprovació del tunel**
