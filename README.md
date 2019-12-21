@@ -110,3 +110,10 @@ A challenge password []:
 An optional company name []:
 
 ```
+
+```
+[root@192 client1]# openssl x509 -CA cacert.pem -CAkey cakey.pem -req -in client1req.pem -days 3650 -extfile ca.client.conf -CAcreateserial -out client1cert.pem
+Signature ok
+subject=C = SP, ST = Barcelona, L = Barcelona, O = Sergi2020, OU = Departament de sergi, CN = Sergi2020, emailAddress = admin@sergi2020.org
+Getting CA Private Key
+```
