@@ -27,7 +27,7 @@ Configurarem els clients amb els certificats i claus:
 
 ## Creació de claus i certificats
 
-* **Servidor**
+* **SERVIDOR**
 
 Per a la creació d'un autocertificat, hem de generar com a primera instància la clau privada.
 
