@@ -118,3 +118,15 @@ Signature ok
 subject=C = SP, ST = Barcelona, L = Barcelona, O = Sergi2020, OU = Departament de sergi, CN = Sergi2020, emailAddress = admin@sergi2020.org
 Getting CA Private Key
 ```
+
+* **CLIENT2** 
+
+Per a la creació d'un autocertificat, hem de generar com a primera instància la clau privada.
+
+```
+[root@192 client2]# openssl genrsa -out client2key.pem
+Generating RSA private key, 2048 bit long modulus
+..................................................+++
+.................+++
+e is 65537 (0x010001)
+```
