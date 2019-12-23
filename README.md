@@ -165,11 +165,11 @@ subject=C = SP, ST = Barcelona, L = Barcelona, O = Sergi2020, OU = Departament d
 Getting CA Private Key
 ```
 
-* **Activació dels serveis**
+## **Activació dels serveis**
 
-* **Extensions dels certificats**
+## **Extensions dels certificats**
 
-- **Extensió del certificat del servidor**
+* **Extensió del certificat del servidor**
 ```            
 [sergimc@192 server]$ openssl x509 -noout -text -in servercert.pem
 
@@ -196,7 +196,7 @@ Exponent: 65537 (0x10001)
 
 ```
 
-- **Extensio del certificat del client1**
+* **Extensio del certificat del client1**
 
 
 ```
@@ -207,6 +207,24 @@ Exponent: 65537 (0x10001)
                 CA:FALSE
             X509v3 Subject Key Identifier: 
                 38:D5:A7:FC:89:C6:1E:52:6F:19:5D:72:F0:95:95:AD:99:10:EC:5C
+            X509v3 Authority Key Identifier: 
+                keyid:A1:3B:82:93:C4:EB:78:45:8E:CE:DC:C0:41:AB:32:50:98:BC:CF:BB
+                DirName:/C=SP/ST=Barcelona/L=Barcelona/O=Sergi2020/OU=Departament de sergi/CN=Sergi2020/emailAddress=admin@sergi2020.org
+                serial:99:22:AD:31:97:68:D9:EA
+
+    Signature Algorithm: sha256WithRSAEncryption
+```
+
+* **Extensió del certificat del client2**
+
+```
+[sergimc@192 client2]$ openssl x509 -noout -text -in client2cert.pem 
+
+ X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                B2:27:EC:65:FF:91:16:05:AD:71:E5:4F:1C:32:FD:B5:63:BF:3F:B4
             X509v3 Authority Key Identifier: 
                 keyid:A1:3B:82:93:C4:EB:78:45:8E:CE:DC:C0:41:AB:32:50:98:BC:CF:BB
                 DirName:/C=SP/ST=Barcelona/L=Barcelona/O=Sergi2020/OU=Departament de sergi/CN=Sergi2020/emailAddress=admin@sergi2020.org
