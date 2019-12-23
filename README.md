@@ -167,6 +167,56 @@ Getting CA Private Key
 
 ## **Activació dels serveis**
 
+* **Activació del servidor**
+
+```
+[root@ip-172-31-30-207 fedora]# systemctl start openvpn-server@server.service
+[root@ip-172-31-30-207 fedora]# systemctl status openvpn-server@server.service
+● openvpn-server@server.service - OpenVPN service for server
+   Loaded: loaded (/usr/lib/systemd/system/openvpn-server@.service; disabled; v>
+   Active: active (running) since Mon 2019-12-23 12:38:28 UTC; 4s ago
+     Docs: man:openvpn(8)
+           https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage
+           https://community.openvpn.net/openvpn/wiki/HOWTO
+ Main PID: 939 (openvpn)
+   Status: "Initialization Sequence Completed"
+    Tasks: 1 (limit: 1141)
+   Memory: 2.6M
+   CGroup: /system.slice/system-openvpn\x2dserver.slice/openvpn-server@server.s>
+           └─939 /usr/sbin/openvpn --status /run/openvpn-server/status-server.l>
+
+```
+
+* **Activació del client**
+
+```
+[root@192 client]# systemctl start openvpn-client@client.service
+[root@192 client]# systemctl status openvpn-client@client.service
+● openvpn-client@client.service - OpenVPN tunnel for client
+   Loaded: loaded (/usr/lib/systemd/system/openvpn-client@.service; disabled; vendor preset: disabled)
+   Active: active (running) since Mon 2019-12-23 13:41:19 CET; 5s ago
+     Docs: man:openvpn(8)
+           https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage
+           https://community.openvpn.net/openvpn/wiki/HOWTO
+ Main PID: 4665 (openvpn)
+   Status: "Initialization Sequence Completed"
+    Tasks: 1 (limit: 4915)
+   CGroup: /system.slice/system-openvpn\x2dclient.slice/openvpn-client@client.service
+           └─4665 /usr/sbin/openvpn --suppress-timestamps --nobind --config client.conf
+
+Dec 23 13:41:20 192.168.1.139 openvpn[4665]: Incoming Data Channel: Cipher 'AES-256-GCM' initialized with 256 bit key
+Dec 23 13:41:20 192.168.1.139 openvpn[4665]: ROUTE_GATEWAY 192.168.1.1/255.255.255.0 IFACE=wlp0s29u1u2 HWADDR=14:cc:20:22:5f:e7
+Dec 23 13:41:20 192.168.1.139 openvpn[4665]: TUN/TAP device tun0 opened
+Dec 23 13:41:20 192.168.1.139 openvpn[4665]: TUN/TAP TX queue length set to 100
+Dec 23 13:41:20 192.168.1.139 openvpn[4665]: do_ifconfig, tt->did_ifconfig_ipv6_setup=0
+Dec 23 13:41:20 192.168.1.139 openvpn[4665]: /sbin/ip link set dev tun0 up mtu 1500
+Dec 23 13:41:20 192.168.1.139 openvpn[4665]: /sbin/ip addr add dev tun0 local 10.8.0.6 peer 10.8.0.5
+Dec 23 13:41:20 192.168.1.139 openvpn[4665]: /sbin/ip route add 10.8.0.0/24 via 10.8.0.5
+Dec 23 13:41:20 192.168.1.139 openvpn[4665]: WARNING: this configuration may cache passwords in memory -- use the auth-nocache option to prevent this
+Dec 23 13:41:20 192.168.1.139 openvpn[4665]: Initialization Sequence Completed
+
+```
+
 ## **Extensions dels certificats**
 
 * **Extensió del certificat del servidor**
@@ -233,4 +283,61 @@ Exponent: 65537 (0x10001)
     Signature Algorithm: sha256WithRSAEncryption
 ```
 
-* **Comprovació del tunel**
+## **Comprovació del tunel**
+
+Per comprovar que el tunel funciona correctament, utilitzarem la comanda ip a per confirmar que els tunels estàn creats correctament i ping per confirmar el seu funcionament.
+
+* **Ip a**
+
+ip a per part del servidor.
+```
+[root@ip-172-31-30-207 fedora]# ip a
+
+3: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 100
+    link/none 
+    inet 10.8.0.1 peer 10.8.0.2/32 scope global tun0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::ce11:f6cd:6fcd:8c14/64 scope link stable-privacy 
+       valid_lft forever preferred_lft forever
+
+
+```
+ip a per part del client .
+```
+[root@192 client]# ip a
+
+14: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 100
+    link/none 
+    inet 10.8.0.6 peer 10.8.0.5/32 scope global tun0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::c4ff:2caf:e0d1:81c5/64 scope link flags 800 
+       valid_lft forever preferred_lft forever
+
+```
+* **Ping**
+
+ping del servidor al client.
+```
+[root@ip-172-31-30-207 fedora]# ping 10.8.0.6
+PING 10.8.0.6 (10.8.0.6) 56(84) bytes of data.
+64 bytes from 10.8.0.6: icmp_seq=1 ttl=64 time=34.8 ms
+64 bytes from 10.8.0.6: icmp_seq=2 ttl=64 time=34.7 ms
+64 bytes from 10.8.0.6: icmp_seq=3 ttl=64 time=39.2 ms
+64 bytes from 10.8.0.6: icmp_seq=4 ttl=64 time=75.7 ms
+^C
+--- 10.8.0.6 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 34.798/46.177/75.780/17.187 ms
+
+```
+
+ping del client al servidor.
+```
+[root@192 client]# ping 10.8.0.1
+PING 10.8.0.1 (10.8.0.1) 56(84) bytes of data.
+64 bytes from 10.8.0.1: icmp_seq=1 ttl=64 time=35.0 ms
+64 bytes from 10.8.0.1: icmp_seq=2 ttl=64 time=48.4 ms
+64 bytes from 10.8.0.1: icmp_seq=3 ttl=64 time=35.5 ms
+64 bytes from 10.8.0.1: icmp_seq=4 ttl=64 time=35.1 ms
+
+```
