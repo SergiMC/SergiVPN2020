@@ -169,4 +169,29 @@ Getting CA Private Key
 
 * **Extensions dels certificats**
 
+- **Extensió del certificat del servidor**
+```            
+Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Cert Type: 
+                SSL Server
+            Netscape Comment: 
+                OpenSSL Generated Server Certificate
+            X509v3 Subject Key Identifier: 
+                72:6B:67:DC:D5:49:20:53:07:13:7A:62:6D:C0:98:E0:7F:AC:A0:3A
+            X509v3 Authority Key Identifier: 
+                keyid:A1:3B:82:93:C4:EB:78:45:8E:CE:DC:C0:41:AB:32:50:98:BC:CF:BB
+                DirName:/C=SP/ST=Barcelona/L=Barcelona/O=Sergi2020/OU=Departament de sergi/CN=Sergi2020/emailAddress=admin@sergi2020.org
+                serial:99:22:AD:31:97:68:D9:EA
+
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment
+    Signature Algorithm: sha256WithRSAEncryption
+
+```
+
 * **Comprovació del tunel**
